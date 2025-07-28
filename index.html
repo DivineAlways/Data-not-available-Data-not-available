@@ -1,0 +1,2069 @@
+```html
+<!--
+This is a multi-file HTML prototype. Each section represents the content of a separate HTML file.
+To view this prototype correctly, you would typically save each section's content into its own `.html` file
+(e.g., index.html, dashboard.html, data-list.html, etc.) in the same directory.
+All navigation links are relative paths designed to work if files are co-located.
+-->
+
+<!-- index.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generic Web App - Prototype</title>
+    <style>
+        /* Global Styles & Reset */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap; /* Allows items to wrap on smaller screens */
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap; /* Prevent breaking in the middle of a link */
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* Mobile Nav Toggle (Hamburger) */
+        .nav-toggle {
+            display: none; /* Hidden on desktop */
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+
+        /* Main Content Area */
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: var(--spacing-lg) 0;
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .hero h2 {
+            font-size: 2em;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .hero p {
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block; /* Show hamburger on mobile */
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none; /* Hide by default on mobile */
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px; /* Adjust based on header height */
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex; /* Show when active */
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .main-nav ul.active + .main-nav {
+                height: auto; /* For JS toggle */
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+            .hero h2 {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Generic Web App Prototype</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="data-list.html">Data List</a></li>
+                <li><a href="detail-view.html">Detail View</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="login-signup.html">Login/Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Hero Section -->
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h2>Welcome to Your Prototype Web App!</h2>
+                <p>This interactive wireframe provides a basic layout and navigation for a generic web application. Explore the different screens to get a feel for the user flow and core features.</p>
+                <a href="dashboard.html" class="btn">Go to Dashboard</a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="#documentation-link" style="color: white; text-decoration: underline;">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- index.html content end -->
+
+<!-- dashboard.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Generic Web App</title>
+    <style>
+        /* Global Styles & Reset - Copied from index.html for standalone viewing */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Dashboard Specific Styles */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card h3 {
+            font-size: 1.4em;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+        }
+
+        .metric {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: var(--text-color);
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-list li {
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .activity-list li:last-child {
+            border-bottom: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px;
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex;
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Dashboard</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="data-list.html">Data List</a></li>
+                <li><a href="detail-view.html">Detail View</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="login-signup.html">Login/Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Dashboard -->
+    <main>
+        <div class="container">
+            <h2>Overview</h2>
+            <!-- Quick Stats Section -->
+            <section class="dashboard-grid">
+                <div class="card">
+                    <h3>Total Users</h3>
+                    <div class="metric">1,234</div>
+                    <div class="metric-label">Registered in the system</div>
+                </div>
+                <div class="card">
+                    <h3>Active Sessions</h3>
+                    <div class="metric">56</div>
+                    <div class="metric-label">Currently logged in</div>
+                </div>
+                <div class="card">
+                    <h3>New Items</h3>
+                    <div class="metric">7</div>
+                    <div class="metric-label">Added this week</div>
+                </div>
+                <div class="card">
+                    <h3>Pending Tasks</h3>
+                    <div class="metric">12</div>
+                    <div class="metric-label">Requires your attention</div>
+                </div>
+            </section>
+
+            <!-- Recent Activity Section -->
+            <section class="card" style="margin-top: var(--spacing-lg);">
+                <h3>Recent Activity</h3>
+                <ul class="activity-list">
+                    <li>[Timestamp]: User [Username] updated [Item Name].</li>
+                    <li>[Timestamp]: New [Data Type] item [Item ID] created.</li>
+                    <li>[Timestamp]: [User Role] [User Name] logged in.</li>
+                    <li>[Timestamp]: [System Event] occurred.</li>
+                    <li>[Timestamp]: User [Username] accessed [Page Name].</li>
+                </ul>
+                <p style="margin-top: var(--spacing-md);"><a href="data-list.html" class="btn btn-secondary">View All Data</a></p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="index.html#documentation-link">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- dashboard.html content end -->
+
+<!-- data-list.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data List - Generic Web App</title>
+    <style>
+        /* Global Styles & Reset - Copied from index.html for standalone viewing */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Data List Specific Styles */
+        .controls-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-lg);
+            gap: var(--spacing-md);
+        }
+
+        .controls-bar input[type="text"],
+        .controls-bar select {
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            flex-grow: 1;
+            max-width: 300px;
+        }
+
+        .data-table-container {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow-x: auto; /* Ensures table is scrollable on small screens */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9em;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: var(--spacing-md);
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .data-table th {
+            background-color: #e9ecef;
+            font-weight: bold;
+            color: var(--text-color);
+        }
+
+        .data-table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+
+        .data-table td a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .data-table td a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px;
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex;
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .controls-bar input[type="text"],
+            .controls-bar select,
+            .controls-bar .btn {
+                max-width: none;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Data List</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="detail-view.html">Detail View</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="login-signup.html">Login/Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Data List -->
+    <main>
+        <div class="container">
+            <h2>All Items</h2>
+            <!-- Controls Bar Section -->
+            <section class="controls-bar">
+                <input type="text" placeholder="Search items..." aria-label="Search items">
+                <select aria-label="Filter by status">
+                    <option value="">All Statuses</option>
+                    <option value="active">Active</option>
+                    <option value="pending">Pending</option>
+                    <option value="archived">Archived</option>
+                </select>
+                <a href="detail-view.html" class="btn">Add New Item</a>
+            </section>
+
+            <!-- Data Table Section -->
+            <section class="data-table-container">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Status</th>
+                            <th>Created Date</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#001</td>
+                            <td><a href="detail-view.html">Item One Name</a></td>
+                            <td>Active</td>
+                            <td>2023-01-15</td>
+                            <td><a href="detail-view.html">View</a> | <a href="#">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>#002</td>
+                            <td><a href="detail-view.html">Another Item</a></td>
+                            <td>Pending</td>
+                            <td>2023-02-01</td>
+                            <td><a href="detail-view.html">View</a> | <a href="#">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>#003</td>
+                            <td><a href="detail-view.html">Third Entry</a></td>
+                            <td>Active</td>
+                            <td>2023-03-10</td>
+                            <td><a href="detail-view.html">View</a> | <a href="#">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>#004</td>
+                            <td><a href="detail-view.html">Archived Data</a></td>
+                            <td>Archived</td>
+                            <td>2023-04-20</td>
+                            <td><a href="detail-view.html">View</a> | <a href="#">Edit</a></td>
+                        </tr>
+                        <tr>
+                            <td>#005</td>
+                            <td><a href="detail-view.html">Latest Item</a></td>
+                            <td>Active</td>
+                            <td>2023-05-05</td>
+                            <td><a href="detail-view.html">View</a> | <a href="#">Edit</a></td>
+                        </tr>
+                        <!-- More rows would go here -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="index.html#documentation-link">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- data-list.html content end -->
+
+<!-- detail-view.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail View - Generic Web App</title>
+    <style>
+        /* Global Styles & Reset - Copied from index.html for standalone viewing */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Detail View Specific Styles */
+        .detail-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin-top: var(--spacing-lg);
+        }
+
+        .detail-card h3 {
+            font-size: 1.4em;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+        }
+
+        .detail-item {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .detail-item strong {
+            flex: 0 0 120px; /* Fixed width for labels */
+            margin-right: var(--spacing-md);
+            color: var(--secondary-color);
+        }
+
+        .detail-item span {
+            flex: 1;
+        }
+
+        .detail-actions {
+            margin-top: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: var(--spacing-md);
+        }
+
+        .section-header h2 {
+            margin-bottom: 0;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px;
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex;
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+            .detail-item {
+                flex-direction: column;
+            }
+            .detail-item strong {
+                flex: none;
+                width: 100%;
+                margin-bottom: var(--spacing-sm);
+            }
+            .detail-actions {
+                flex-direction: column;
+            }
+            .detail-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Item Detail: #001</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="data-list.html">Data List</a></li>
+                <li><a href="settings.html">Settings</a></li>
+                <li><a href="login-signup.html">Login/Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Detail View -->
+    <main>
+        <div class="container">
+            <div class="section-header">
+                <h2>Item Overview</h2>
+                <div class="detail-actions">
+                    <a href="#" class="btn btn-secondary">Edit Item</a>
+                    <button class="btn btn-danger">Delete Item</button>
+                </div>
+            </div>
+
+            <!-- Item Details Section -->
+            <section class="detail-card">
+                <h3>General Information</h3>
+                <div class="detail-item">
+                    <strong>Item Name:</strong> <span>[Item One Name]</span>
+                </div>
+                <div class="detail-item">
+                    <strong>ID:</strong> <span>#001</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Status:</strong> <span>Active</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Description:</strong> <span>[Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.]</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Created By:</strong> <span>[User Name]</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Created Date:</strong> <span>2023-01-15</span>
+                </div>
+                <div class="detail-item">
+                    <strong>Last Updated:</strong> <span>2023-11-20</span>
+                </div>
+            </section>
+
+            <!-- Related Data Section -->
+            <section class="detail-card" style="margin-top: var(--spacing-lg);">
+                <h3>Related Data / History</h3>
+                <ul class="activity-list" style="list-style: none; padding: 0;">
+                    <li style="border-bottom: 1px solid var(--border-color); padding: var(--spacing-sm) 0;">[2023-11-20] [User A] updated status to Active.</li>
+                    <li style="border-bottom: 1px solid var(--border-color); padding: var(--spacing-sm) 0;">[2023-10-01] [System] performed routine check.</li>
+                    <li style="padding: var(--spacing-sm) 0;">[2023-01-15] Item created by [User A].</li>
+                </ul>
+                <p style="margin-top: var(--spacing-md);">
+                    <a href="#" class="btn btn-secondary">View Full History</a>
+                </p>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="index.html#documentation-link">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- detail-view.html content end -->
+
+<!-- settings.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - Generic Web App</title>
+    <style>
+        /* Global Styles & Reset - Copied from index.html for standalone viewing */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Settings Specific Styles */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single column on mobile */
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-lg);
+        }
+
+        .settings-card {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .settings-card h3 {
+            font-size: 1.4em;
+            margin-bottom: var(--spacing-md);
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: bold;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="email"],
+        .form-group input[type="password"],
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .form-actions {
+            margin-top: var(--spacing-lg);
+            display: flex;
+            gap: var(--spacing-md);
+        }
+
+        /* Toggle switch for notifications */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            -webkit-transition: .4s;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--primary-color);
+        }
+
+        input:focus + .slider {
+            box-shadow: 0 0 1px var(--primary-color);
+        }
+
+        input:checked + .slider:before {
+            -webkit-transform: translateX(16px);
+            -ms-transform: translateX(16px);
+            transform: translateX(16px);
+        }
+
+        .settings-option {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--spacing-sm) 0;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .settings-option:last-of-type {
+            border-bottom: none;
+        }
+
+        /* Responsive Adjustments */
+        @media (min-width: 769px) {
+            .settings-grid {
+                grid-template-columns: repeat(2, 1fr); /* Two columns on larger screens */
+            }
+        }
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px;
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex;
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+            .form-actions {
+                flex-direction: column;
+            }
+            .form-actions .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Settings</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="data-list.html">Data List</a></li>
+                <li><a href="detail-view.html">Detail View</a></li>
+                <li><a href="login-signup.html">Login/Signup</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Settings -->
+    <main>
+        <div class="container">
+            <h2>User Profile & Settings</h2>
+            <div class="settings-grid">
+                <!-- Account Information Section -->
+                <section class="settings-card">
+                    <h3>Account Information</h3>
+                    <form>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" value="[Current Username]" placeholder="Enter username">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" value="[current@example.com]" placeholder="Enter email">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Change Password</label>
+                            <input type="password" id="password" placeholder="New password">
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm New Password</label>
+                            <input type="password" id="confirm-password" placeholder="Confirm new password">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn">Update Profile</button>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Notification Preferences Section -->
+                <section class="settings-card">
+                    <h3>Notification Preferences</h3>
+                    <div class="settings-option">
+                        <span>Email Notifications</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" checked>
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <span>Push Notifications</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="settings-option">
+                        <span>SMS Alerts</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-actions" style="margin-top: var(--spacing-lg);">
+                        <button type="button" class="btn btn-secondary">Save Preferences</button>
+                    </div>
+                </section>
+
+                <!-- Privacy Settings Section -->
+                <section class="settings-card">
+                    <h3>Privacy Settings</h3>
+                    <div class="form-group">
+                        <label for="data-sharing">Data Sharing Preferences</label>
+                        <select id="data-sharing">
+                            <option value="none">Do not share data</option>
+                            <option value="anonymized" selected>Share anonymized data</option>
+                            <option value="full">Share full data</option>
+                        </select>
+                    </div>
+                    <div class="settings-option">
+                        <span>Public Profile</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn">Update Privacy</button>
+                    </div>
+                </section>
+
+                <!-- Other Settings / Actions -->
+                <section class="settings-card">
+                    <h3>Other Actions</h3>
+                    <div class="form-group">
+                        <p>Need to manage your subscription?</p>
+                        <a href="#" class="btn btn-secondary">Manage Subscription</a>
+                    </div>
+                    <div class="form-group">
+                        <p>Export your data from the platform.</p>
+                        <button type="button" class="btn btn-secondary">Export Data</button>
+                    </div>
+                    <div class="form-group">
+                        <p>Danger Zone: Permanently delete your account.</p>
+                        <button type="button" class="btn btn-danger">Delete Account</button>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="index.html#documentation-link">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- settings.html content end -->
+
+<!-- login-signup.html content start -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Signup - Generic Web App</title>
+    <style>
+        /* Global Styles & Reset - Copied from index.html for standalone viewing */
+        :root {
+            --primary-color: #007bff;
+            --secondary-color: #6c757d;
+            --background-color: #f8f9fa;
+            --surface-color: #ffffff;
+            --text-color: #343a40;
+            --border-color: #dee2e6;
+            --spacing-sm: 8px;
+            --spacing-md: 16px;
+            --spacing-lg: 24px;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: var(--spacing-md);
+            width: 100%;
+        }
+
+        header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-md) 0;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 1.8em;
+            margin-bottom: var(--spacing-sm);
+        }
+
+        .main-nav {
+            background-color: var(--surface-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: var(--spacing-md) 0;
+        }
+
+        .main-nav ul {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-md);
+        }
+
+        .main-nav a {
+            text-decoration: none;
+            color: var(--primary-color);
+            padding: var(--spacing-sm) var(--spacing-md);
+            border-radius: 4px;
+            transition: background-color 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5em;
+            cursor: pointer;
+            padding: var(--spacing-sm);
+        }
+        main {
+            flex-grow: 1;
+            padding: var(--spacing-lg) 0;
+            display: flex; /* Use flex to center the form */
+            justify-content: center;
+            align-items: center;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: var(--spacing-sm) var(--spacing-md);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 1em;
+            transition: background-color 0.2s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: var(--secondary-color);
+        }
+
+        .btn-secondary:hover {
+            background-color: #545b62;
+        }
+        footer {
+            background-color: var(--text-color);
+            color: white;
+            text-align: center;
+            padding: var(--spacing-md) 0;
+            margin-top: var(--spacing-lg);
+        }
+        footer a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        /* Login/Signup Specific Styles */
+        .auth-form-container {
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: var(--spacing-lg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .auth-form-container h2 {
+            margin-bottom: var(--spacing-lg);
+            color: var(--primary-color);
+        }
+
+        .form-group {
+            margin-bottom: var(--spacing-md);
+            text-align: left; /* Align labels/inputs to the left within the form */
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: var(--spacing-sm);
+            font-weight: bold;
+        }
+
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: var(--spacing-sm);
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 1em;
+        }
+
+        .auth-form-container .btn {
+            width: 100%;
+            margin-top: var(--spacing-md);
+        }
+
+        .auth-form-container p {
+            margin-top: var(--spacing-md);
+            font-size: 0.9em;
+        }
+
+        .auth-form-container p a {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .auth-form-container p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: var(--spacing-md);
+            }
+            header h1 {
+                margin-bottom: 0;
+                font-size: 1.5em;
+            }
+            .nav-toggle {
+                display: block;
+            }
+            .main-nav ul {
+                flex-direction: column;
+                display: none;
+                width: 100%;
+                padding: var(--spacing-md) 0;
+                background-color: var(--surface-color);
+                border-top: 1px solid var(--border-color);
+                position: absolute;
+                left: 0;
+                top: 70px;
+                z-index: 1000;
+            }
+            .main-nav ul.active {
+                display: flex;
+            }
+            .main-nav li {
+                width: 100%;
+                text-align: center;
+            }
+            .main-nav a {
+                display: block;
+                padding: var(--spacing-md) 0;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+            .container {
+                padding: var(--spacing-sm);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <h1>Login / Signup</h1>
+            <button class="nav-toggle" id="navToggle">☰</button>
+        </div>
+    </header>
+
+    <!-- Main Navigation Section -->
+    <nav class="main-nav">
+        <div class="container">
+            <ul id="navList">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="data-list.html">Data List</a></li>
+                <li><a href="detail-view.html">Detail View</a></li>
+                <li><a href="settings.html">Settings</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content - Login/Signup Form -->
+    <main>
+        <section class="auth-form-container">
+            <h2>Log In</h2>
+            <form action="dashboard.html" method="get">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" placeholder="your.email@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="********" required>
+                </div>
+                <button type="submit" class="btn">Log In</button>
+            </form>
+            <p>Don't have an account? <a href="#">Sign Up Now</a></p>
+            <p><a href="#">Forgot Password?</a></p>
+        </section>
+    </main>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Prototype App. All rights reserved.</p>
+            <p><a href="index.html#documentation-link">Documentation & Prototype Notes</a></p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Navigation Toggle -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const navToggle = document.getElementById('navToggle');
+            const navList = document.getElementById('navList');
+
+            if (navToggle && navList) {
+                navToggle.addEventListener('click', function() {
+                    navList.classList.toggle('active');
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+<!-- login-signup.html content end -->
+```
